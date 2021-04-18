@@ -29,13 +29,13 @@ interval = 0.01 * 2
 while True:
     print(f'for N={n}')
 
-    d3_data = np.array([d for d in point_pair_distance(def_point_in_unit_spheroid(3), n)])
+    d3_data = np.empty(n)
+    for i, el in enumerate(point_pair_distance(def_point_in_unit_spheroid(3), n)): d3_data[i] = el
     sample_mean, sample_standard_error = d3_data.mean(), stats.sem(d3_data)
-    conf_int = stats.t.interval(conf, n-1, sample_mean, sample_standard_error)
-    conf_low, conf_hi = conf_int
+    conf_low, conf_hi = stats.t.interval(conf, n-1, sample_mean, sample_standard_error)
 
     print(f'd3 mean: {np.mean(d3_data)}')
-    print(f'conf_int: {conf_int}')
+    print(f'conf_int: {conf_low}, {conf_hi}')
 
     if hyp_mean < conf_low or hyp_mean > conf_hi:
         print("rejected!")
