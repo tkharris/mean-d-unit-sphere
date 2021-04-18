@@ -46,4 +46,4 @@ while True:
     else:
         print(f'interval is: {conf_hi - conf_low}, still testing...')
 
-    n <<= 1
+    n *= 2
